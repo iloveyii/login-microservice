@@ -51,13 +51,14 @@ This is a small Micro service application to Login / Register using Rest API, de
    * If you don't want to use MySQL database this app uses sqlite by default, the db file is database.sqlite.
    * Run migrations to create the database tables as `vendor/bin/yii migrate/up --appconfig=./config.php`.
    * Point your web server www directory or Create a virtual host using [vh](https://github.com/iloveyii/vh) `vh new login-microservice -p /path/to/login-microservice/web`
-   * Browse to [http://micrologin.loc/users](http://micrologin.loc/users) or better use Postman.
+   * Browse to [http://login-microservice.loc/users](http://login-microservice.loc/users) or better use Postman.
  
  PROBLEMS AND SOLUTIONS
  ---------------
  * If the database.sqlite database is read only then run the following commands (on linux).
  ```
     sudo chown -R :www-data ../login-microservice
+    sudo chown 777 ../login-microservice/
     sudo chmod 777 database.sqlite
  ```
  Change user name as per your web server user name.
