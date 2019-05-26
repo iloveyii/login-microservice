@@ -34,11 +34,19 @@ class UserController extends ActiveController
         $user = User::findOne(['name' => $name, 'password' => $password]);
 
         if (isset($user)) {
-            return User::getToken();
+            $data = [
+                'token' =>  User::getToken()
+            ];
+
+            return $data;
         }
 
         Yii::$app->response->statusCode = 401;
-        return 'Username or password is invalid';
+        $data = [
+            'error' =>  'Username or password is invalid'
+        ];
+
+        return $data;
     }
 
 
@@ -63,7 +71,10 @@ class UserController extends ActiveController
             return $model->errors;
         } else {
             Yii::$app->response->statusCode = 201;
-            return $model->token;
+            $data = [
+                'token' =>  $model->token
+            ];
+            return $data;
         }
     }
 
@@ -84,6 +95,11 @@ class UserController extends ActiveController
         }
 
         Yii::$app->response->statusCode = 404;
-        return 'Token ' . $token . ' not found ';
+
+        $data = [
+            'error' =>  'Token ' . $token . ' not found '
+        ];
+
+        return $data;
     }
 }
