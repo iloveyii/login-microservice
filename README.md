@@ -2,6 +2,8 @@ Login / Register Micro service
 ===============================
 This is a small Micro service application to Login / Register using Rest API, developed in PHP.
 
+![Screenshot](https://raw.githubusercontent.com/iloveyii/login-microservice/master/demo.gif)
+
  GOAL
 ---------------
  * Writing a micro service exposing a REST API for a basic user login
