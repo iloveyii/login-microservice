@@ -83,6 +83,7 @@ class UserController extends ActiveController
             return $user;
         }
 
+        Yii::$app->response->statusCode = 404;
         return 'Token ' . $token . ' not found ';
     }
 }
