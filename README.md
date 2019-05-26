@@ -45,7 +45,7 @@ This is a small Micro service application to Login / Register using Rest API, de
  
  INSTALLATION
  ---------------
-   * Clone the repository `git clone git@bitbucket.org:iloveyii/challenge.git`.
+   * Clone the repository `git clone https://github.com/iloveyii/login-microservice`.
    * Run composer install `composer install`.
    * If you want to use MySQL then create a database at your MySQL Server, and adjust the database credentials in the `config.php`, and also rename db2 to db.
    * If you don't want to use MySQL database this app uses sqlite by default, the db file is database.sqlite.
