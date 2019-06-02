@@ -10,11 +10,11 @@ return [
         '@micro' => __DIR__,
     ],
     'components' => [
-        'db' => [
+        'db2' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'sqlite:@micro/database.sqlite',
         ],
-        'db2' => [
+        'db' => [
             'class' => '\yii\db\Connection',
             'dsn' => 'mysql:unix_socket=/var/run/mysqld/mysqld.sock;dbname=authdb',
             'username' => 'root',

@@ -46,11 +46,9 @@ class User extends ActiveRecord
         ];
     }
 
-    private function generateAccessToken($expireInSeconds = 60 * 5)
+    public function generateAccessToken($expireInSeconds = 60 * 5)
     {
-        $this->token = Yii::$app->security->generateRandomString() . '_' . (time() + $expireInSeconds);
-        $this->save(false);
-        return $this->token;
+        return Yii::$app->security->generateRandomString() . '_' . (time() + $expireInSeconds);
     }
 
     public function isAccessTokenValid()
@@ -62,16 +60,11 @@ class User extends ActiveRecord
         return false;
     }
 
-    public static function getToken()
-    {
-        $model = new static();
-        return $model->generateAccessToken();
-    }
-
     public function register()
     {
+        $this->token = $this->generateAccessToken();
+
         if ($this->save(true)) {
-            $this->generateAccessToken();
             return $this->token;
         }
 
