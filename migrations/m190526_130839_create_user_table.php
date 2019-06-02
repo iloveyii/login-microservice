@@ -18,6 +18,8 @@ class m190526_130839_create_user_table extends Migration
             'password' => $this->string(45),
             'email' => $this->string(45),
             'token' => $this->string(45),
+            'created_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime(),
         ]);
     }
 

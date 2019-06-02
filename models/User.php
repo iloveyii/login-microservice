@@ -2,8 +2,10 @@
 
 namespace micro\models;
 
-use yii\db\ActiveRecord;
 use Yii;
+use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 class User extends ActiveRecord
 {
@@ -42,8 +44,30 @@ class User extends ActiveRecord
 
             ['password', 'required'],
             ['password', 'string', 'min' => 3],
-            [['name', 'password', 'email'], 'safe'],
+            [['name', 'password', 'email'], 'safe', 'on' => User::SCENARIO_REGISTER],
         ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
+
+    /**
+     * This is must for mass assignment to work if the model has no related formModel
+     * Override parents method
+     * @return string
+     */
+    public function formName()
+    {
+        return '';
     }
 
     public function generateAccessToken($expireInSeconds = 60 * 5)
@@ -65,9 +89,9 @@ class User extends ActiveRecord
         $this->token = $this->generateAccessToken();
 
         if ($this->save(true)) {
-            return $this->token;
+            return true;
         }
 
-        return $this->errors;
+        return false;
     }
 }

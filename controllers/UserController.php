@@ -7,6 +7,7 @@ use yii\rest\ActiveController;
 use micro\models\User;
 use Yii;
 
+
 class UserController extends ActiveController
 {
     public $modelClass = 'micro\models\User';
@@ -58,25 +59,19 @@ class UserController extends ActiveController
      */
     public function actionRegister()
     {
-        $model = new User();
-        $model->scenario = User::SCENARIO_REGISTER;
+        $model = new User(['scenario' => User::SCENARIO_REGISTER]);
 
-        $model->name = Yii::$app->request->post('name');
-        $model->email = Yii::$app->request->post('email');
-        $model->password = Yii::$app->request->post('password');
-
-        $model->register();
-
-        if($model->hasErrors()) {
-            Yii::$app->response->statusCode = 401;
-            return $model->errors;
-        } else {
+        if($model->load(Yii::$app->request->post()) && $model->register()) {
             Yii::$app->response->statusCode = 201;
             $data = [
                 'token' =>  $model->token
             ];
             return $data;
         }
+
+        // Model has errors
+        Yii::$app->response->statusCode = 401;
+        return $model->errors;
     }
 
     /**
