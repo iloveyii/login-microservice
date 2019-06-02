@@ -32,7 +32,7 @@ class UserController extends ActiveController
         $name = Yii::$app->request->post('name');
         $password = Yii::$app->request->post('password');
 
-        $user = User::findOne(['name' => $name, 'password' => $password]);
+        $user = User::findOne(['name' => $name, 'password' => md5($password)]);
 
 
         if (isset($user)) {

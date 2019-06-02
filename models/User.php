@@ -94,4 +94,10 @@ class User extends ActiveRecord
 
         return false;
     }
+
+    public function beforeSave($insert)
+    {
+        $this->password = md5($this->password);
+        return parent::beforeSave($insert);
+    }
 }
