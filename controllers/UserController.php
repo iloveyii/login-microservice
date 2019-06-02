@@ -33,9 +33,11 @@ class UserController extends ActiveController
         $password = Yii::$app->request->post('password');
 
         $user = User::findOne(['name' => $name, 'password' => $password]);
-        $user->token = $user->generateAccessToken();
 
-        if (isset($user) && $user->save(false)) {
+
+        if (isset($user)) {
+            $user->token = $user->generateAccessToken();
+            $user->save(false);
             $data = [
                 'token' =>  $user->token
             ];
